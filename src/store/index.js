@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import { userReducer } from "../feature/User/slice";
@@ -20,7 +20,7 @@ export function* rootSaga() {
 const createStore = () => {
   const store = configureStore({
     reducer: rootReducer,
-    middleware: [...getDefaultMiddleware(), sagaMiddleware],
+    middleware: [sagaMiddleware],
     devTools: process.env.NODE_ENV !== "production",
   });
   sagaMiddleware.run(rootSaga);
