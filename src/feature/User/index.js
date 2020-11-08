@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "./slice";
 
 const Auth = () => {
-  const user = useSelector((state) => state.user.userObj);
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.user.userObj);
   const logInWithEmailError = useSelector((state) => state.user.logInError);
   const signUpWithEmailError = useSelector((state) => state.user.signUpError);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onChange = (event) => {
     const {

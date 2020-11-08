@@ -10,7 +10,7 @@ function signUpAPI({ email, password }) {
 function* signUp(action) {
   try {
     const result = yield call(signUpAPI, action.payload);
-    console.log("엑션", result);
+    console.log("액션", result);
     yield put(userAction.signUpWithEmailSuccess(result));
   } catch (error) {
     console.log("에러", error);
