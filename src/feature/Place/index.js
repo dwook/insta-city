@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { placeAction } from "./slice";
+import { H2, Description } from "components/atoms/Typography";
+import { Input } from "components/atoms/Input";
+import { Button } from "components/atoms/Button";
 
 const CreatePlacePage = () => {
   const dispatch = useDispatch();
@@ -21,32 +25,37 @@ const CreatePlacePage = () => {
   };
 
   return (
-    <div>
-      <h1>장소등록</h1>
-      <p>1단계. 인스타그램 계정확인</p>
+    <Container>
+      <H2>장소등록</H2>
+      <Description>
+        1. 등록하고 싶은 장소의 인스타그램 계정을 입력해주세요.
+      </Description>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="">인스타그램 계정</label>
-          <input
+          <Input
             type="text"
             name="instaAccount"
             value={instaAccount}
             onChange={onChange}
+            placeholder="@"
           />
-          <input type="submit" value="확인" />
+          <Button>확인</Button>
         </div>
       </form>
-      <p>2단계. 카카오 장소검색</p>
+      <Description>
+        2. 등록하고 싶은 장소의 상호명을 검색하고 정확한 주소를 선택해주세요.
+      </Description>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="">장소</label>
-          <input
+          <Input
             type="text"
             name="place"
             value={placeQuery}
             onChange={onChange}
           />
-          <input type="submit" value="검색" />
+          <Button>검색</Button>
         </div>
       </form>
       <div>
@@ -62,8 +71,14 @@ const CreatePlacePage = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 
 export default CreatePlacePage;
+
+const Container = styled.div`
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+`;

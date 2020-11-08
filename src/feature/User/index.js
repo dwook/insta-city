@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "./slice";
+import { Description } from "components/atoms/Typography";
+import { Input } from "components/atoms/Input";
+import { Button } from "components/atoms/Button";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -34,9 +38,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="authContainer">
+    <Container>
+      <Description>계정을 만들고 장소를 모아보세요!</Description>
       <form onSubmit={onSubmit}>
-        <input
+        <Input
           name="email"
           type="email"
           placeholder="Email"
@@ -44,7 +49,7 @@ const Auth = () => {
           value={email}
           onChange={onChange}
         />
-        <input
+        <Input
           name="password"
           type="password"
           placeholder="Password"
@@ -52,12 +57,18 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value={user ? "로그인" : "계정생성"} />
+        <Button>로그인</Button>
         {logInWithEmailError}
         {signUpWithEmailError}
       </form>
-    </div>
+    </Container>
   );
 };
 
 export default Auth;
+
+const Container = styled.div`
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+`;

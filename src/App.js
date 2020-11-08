@@ -2,18 +2,21 @@ import React from "react";
 import { Provider } from "react-redux";
 import createStore from "./store";
 
-import Auth from "../src/feature/User/";
-import CreatePlacePage from "./feature/Place";
+import MapContainer from "components/MapContainer";
+import Layout from "components/Layout";
+import Side from "components/Side";
+import Trending from "components/Trending";
 
 const store = createStore();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <div>
-        <Auth />
-        <CreatePlacePage/>
-      </div>
+      <Layout>
+        <Trending />
+        <MapContainer />
+        <Side />
+      </Layout>
     </Provider>
   );
 };
