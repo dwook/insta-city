@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import createStore from "./store";
 
 import Auth from "../src/feature/User/";
+import CreatePlacePage from "./feature/Place";
 
 const store = createStore();
 
@@ -11,6 +12,7 @@ const App = () => {
     <Provider store={store}>
       <div>
         <Auth />
+        <CreatePlacePage/>
       </div>
     </Provider>
   );

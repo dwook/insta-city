@@ -2,19 +2,26 @@ import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import { userReducer } from "../feature/User/slice";
+import { placeReducer } from "../feature/Place/slice";
 import {
   watchLogInWithEmail,
   watchSignUpWithEmail,
 } from "../feature/User/saga";
+import { watchSearchPlace } from "../feature/Place/saga";
 
 const rootReducer = {
   user: userReducer,
+  place: placeReducer,
 };
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
-  yield all([watchLogInWithEmail(), watchSignUpWithEmail()]);
+  yield all([
+    watchLogInWithEmail(),
+    watchSignUpWithEmail(),
+    watchSearchPlace(),
+  ]);
 }
 
 const createStore = () => {

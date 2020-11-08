@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
+    "axios": "^0.21.0",
     "firebase": "^7.24.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -36,5 +37,6 @@
   },
   "devDependencies": {
     "eslint-config-react-app": "^6.0.0"
-  }
+  },
+  "proxy":"https://asia-northeast2-insta-city-project.cloudfunctions.net/"
 }
