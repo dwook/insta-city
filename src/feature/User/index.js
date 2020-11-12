@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "./slice";
 import { Description } from "components/atoms/Typography";
-import { Input } from "components/atoms/Input";
+import { Input, Label } from "components/atoms/Input";
 import { Button } from "components/atoms/Button";
 
 const Auth = () => {
@@ -39,9 +39,16 @@ const Auth = () => {
 
   return (
     <Container>
-      <Description>계정을 만들고 장소를 모아보세요!</Description>
+      <Description>
+        <div>계정을 만들면 장소들을 등록하고 모을 수 있어요!</div>
+        <div>
+          아직 계정이 없나요? <Link>회원가입</Link>
+        </div>
+      </Description>
       <form onSubmit={onSubmit}>
+        <Label htmlFor="email">이메일</Label>
         <Input
+          id="email"
           name="email"
           type="email"
           placeholder="Email"
@@ -49,7 +56,9 @@ const Auth = () => {
           value={email}
           onChange={onChange}
         />
+        <Label htmlFor="password">패스워드</Label>
         <Input
+          id="password"
           name="password"
           type="password"
           placeholder="Password"
@@ -71,4 +80,8 @@ const Container = styled.div`
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
+`;
+
+const Link = styled.a`
+  color: #9245ff;
 `;

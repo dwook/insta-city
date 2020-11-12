@@ -14,7 +14,7 @@ function Side() {
 export default Side;
 
 const Container = styled.div`
-  width: 450px;
+  width: 500px;
   height: 100vh;
   display: flex;
   flex-direction: column;

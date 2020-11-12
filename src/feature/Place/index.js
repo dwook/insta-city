@@ -3,21 +3,29 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { placeAction } from "./slice";
 import { H2, Description } from "components/atoms/Typography";
-import { Input } from "components/atoms/Input";
+import { Input, Label } from "components/atoms/Input";
 import { Button } from "components/atoms/Button";
 
 const CreatePlacePage = () => {
   const dispatch = useDispatch();
   const searchedPlaces = useSelector((state) => state.place.searchedPlaces);
-  const [instaAccount, setInstaAccount] = useState("");
+  const [IGAccount, setIGAccount] = useState("");
   const [placeQuery, setPlaceQuery] = useState("");
 
-  const onChange = (event) => {
+  const onIGAccountChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setIGAccount(value);
+  };
+
+  const onPlaceChange = (event) => {
     const {
       target: { value },
     } = event;
     setPlaceQuery(value);
   };
+
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -32,12 +40,12 @@ const CreatePlacePage = () => {
       </Description>
       <form onSubmit={onSubmit}>
         <div>
-          <label htmlFor="">인스타그램 계정</label>
+          <Label htmlFor="">인스타그램 계정</Label>
           <Input
             type="text"
             name="instaAccount"
-            value={instaAccount}
-            onChange={onChange}
+            value={IGAccount}
+            onChange={onIGAccountChange}
             placeholder="@"
           />
           <Button>확인</Button>
@@ -48,12 +56,12 @@ const CreatePlacePage = () => {
       </Description>
       <form onSubmit={onSubmit}>
         <div>
-          <label htmlFor="">장소</label>
+          <Label htmlFor="">장소</Label>
           <Input
             type="text"
             name="place"
             value={placeQuery}
-            onChange={onChange}
+            onChange={onPlaceChange}
           />
           <Button>검색</Button>
         </div>
