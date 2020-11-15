@@ -12,8 +12,10 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const GlobalStyle = createGlobalStyle`
+  * {
+  box-sizing: border-box;
+  }
   body {
-    padding: 1rem;
     background: rgb(250,245,29);
     // background: linear-gradient(0deg, rgba(250,245,29,1) 0%, rgba(250,45,197,1) 50%, rgba(146,69,255,1) 100%);
   }
