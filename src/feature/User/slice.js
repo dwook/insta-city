@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
-  userObj: null,
+  userInfo: null,
   logInWithEmailLoading: false,
   logInWithEmailDone: false,
   logInWithEmailError: null,
@@ -19,7 +19,11 @@ const reducers = {
   logInWithEmailSuccess: (state, { payload: { user } }) => {
     state.logInLoading = false;
     state.logInDone = true;
-    state.userObj = user;
+    state.userInfo = {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+    };
   },
   logInWithEmailFailure: (state, { payload: error }) => {
     state.logInLoading = false;
@@ -33,7 +37,7 @@ const reducers = {
   signUpWithEmailSuccess: (state, { payload: { user } }) => {
     state.signUpLoading = false;
     state.signUpDone = true;
-    state.userObj = user;
+    state.userInfo = user;
   },
   signUpWithEmailFailure: (state, { payload: error }) => {
     state.signUpLoading = false;

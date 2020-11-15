@@ -24,12 +24,13 @@ export function* watchSignUpWithEmail() {
 
 function logInAPI({ email, password }) {
   console.log("로그인", email, password);
-  return authService.signUpWithEmailAndPassword(email, password);
+  return authService.signInWithEmailAndPassword(email, password);
 }
 
 function* logIn(action) {
   try {
     const result = yield call(logInAPI, action.payload);
+    console.log(result);
     yield put(userAction.logInWithEmailSuccess(result));
   } catch (error) {
     yield put(userAction.logInWithEmailFailure(error));
