@@ -7,7 +7,12 @@ import {
   watchLogInWithEmail,
   watchSignUpWithEmail,
 } from "../feature/User/saga";
-import { watchSearchPlace } from "../feature/Place/saga";
+import {
+  watchSearchAddress,
+  watchSearchAccount,
+  watchCreatePlace,
+  watchGetAccountInfo,
+} from "../feature/Place/saga";
 
 const rootReducer = {
   user: userReducer,
@@ -20,7 +25,10 @@ export function* rootSaga() {
   yield all([
     watchLogInWithEmail(),
     watchSignUpWithEmail(),
-    watchSearchPlace(),
+    watchSearchAddress(),
+    watchSearchAccount(),
+    watchCreatePlace(),
+    watchGetAccountInfo(),
   ]);
 }
 
