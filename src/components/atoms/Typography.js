@@ -21,3 +21,9 @@ export const Description = styled.div`
   font-size: 0.8rem;
   padding: 0.5rem 0;
 `;
+
+export const Title = styled.span`
+  width: 50px;
+  color: #868e96;
+  display: inline-block;
+`;
