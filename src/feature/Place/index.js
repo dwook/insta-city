@@ -17,6 +17,7 @@ const CreatePlacePage = () => {
   const searchedAccounts = useSelector((state) => state.place.searchedAccounts);
   const accountInfo = useSelector((state) => state.place.accountInfo);
   const userInfo = useSelector((state) => state.user.userInfo);
+  const createdPlace = useSelector((state) => state.place.createdPlace);
 
   const [accountQuery, setAccountQuery] = useState("");
   const [accountListOpen, setAccountListOpen] = useState(false);
@@ -41,6 +42,14 @@ const CreatePlacePage = () => {
       dispatch(placeAction.searchAddressRequest(addressQuery));
     }
   }, [addressQuery]);
+
+  useEffect(() => {
+    if (createdPlace) {
+      setPlaceToCreate({});
+      setSelectedAccount(null);
+      setSelectedAddress(null);
+    }
+  }, [createdPlace]);
 
   const onAccountQueryChange = (event) => {
     setAccountQuery(event.target.value);

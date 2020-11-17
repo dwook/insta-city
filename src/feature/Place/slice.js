@@ -73,11 +73,12 @@ const reducers = {
     state.createPlaceLoading = true;
     state.createPlaceDone = false;
     state.createPlaceError = null;
+    state.createdPlace = null;
   },
-  createPlaceSuccess: (state, { payload: { data } }) => {
+  createPlaceSuccess: (state, { payload }) => {
     state.createPlaceLoading = false;
     state.createPlaceDone = true;
-    state.createdPlace = data;
+    state.createdPlace = payload.f_.path.segments[1];
   },
   createPlaceFailure: (state, { payload: error }) => {
     state.createPlaceLoading = false;

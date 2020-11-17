@@ -65,7 +65,6 @@ function* createPlace(action) {
   try {
     const result = yield call(createPlaceAPI, action.payload);
     console.log("액션", result);
-    console.log("ID", result.f_.path.segments[1]);
     yield put(placeAction.createPlaceSuccess(result));
   } catch (error) {
     console.log("에러", error);
