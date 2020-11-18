@@ -12,6 +12,7 @@ import {
   watchSearchAccount,
   watchCreatePlace,
   watchGetAccountInfo,
+  watchGetRecentPlaces,
 } from "../feature/Place/saga";
 
 const rootReducer = {
@@ -29,6 +30,7 @@ export function* rootSaga() {
     watchSearchAccount(),
     watchCreatePlace(),
     watchGetAccountInfo(),
+    watchGetRecentPlaces(),
   ]);
 }
 

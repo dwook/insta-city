@@ -88,6 +88,28 @@ function* getAccountInfo(action) {
   }
 }
 
+function getRecentPlacesAPI() {
+  const result = dbService.collection("place").onSnapshot((snapshot) => {
+    const recentPlaces = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(recentPlaces);
+  });
+  return result;
+}
+
+function* getRecentPlaces(action) {
+  try {
+    const result = yield call(getRecentPlacesAPI, action.payload);
+    console.log("액션", result);
+    yield put(placeAction.getRecentPlacesSuccess(result));
+  } catch (error) {
+    console.log("에러", error);
+    yield put(placeAction.getRecentPlacesFailure(error));
+  }
+}
+
 export function* watchSearchAddress() {
   yield debounce(100, placeAction.searchAddressRequest, searchAddress);
 }
@@ -102,4 +124,8 @@ export function* watchCreatePlace() {
 
 export function* watchGetAccountInfo() {
   yield takeLatest(placeAction.getAccountInfoRequest, getAccountInfo);
+}
+
+export function* watchGetRecentPlaces() {
+  yield takeLatest(placeAction.getRecentPlacesRequest, getRecentPlaces);
 }

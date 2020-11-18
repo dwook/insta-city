@@ -18,6 +18,10 @@ export const initialState = {
   getAccountDone: false,
   getAccountError: null,
   accountInfo: null,
+  getRecentPlacesLoading: false,
+  getRecentPlacesDone: false,
+  getRecentPlacesError: null,
+  recentPlaces: [],
 };
 
 const reducers = {
@@ -108,6 +112,21 @@ const reducers = {
   getAccountInfoFailure: (state, { payload: error }) => {
     state.getAccountInfoLoading = false;
     state.getAccountInfoError = error.message;
+  },
+  getRecentPlacesRequest: (state) => {
+    state.getRecentPlacesLoading = true;
+    state.getRecentPlacesDone = false;
+    state.getRecentPlacesError = null;
+    state.recentPlaces = [];
+  },
+  getRecentPlacesSuccess: (state, { payload }) => {
+    state.getRecentPlacesLoading = false;
+    state.getRecentPlacesDone = true;
+    state.recentPlaces = payload;
+  },
+  getRecentPlacesFailure: (state, { payload: error }) => {
+    state.getRecentPlacesLoading = false;
+    state.getRecentPlacesError = error.message;
   },
 };
 

@@ -18,6 +18,7 @@ const CreatePlacePage = () => {
   const accountInfo = useSelector((state) => state.place.accountInfo);
   const userInfo = useSelector((state) => state.user.userInfo);
   const createdPlace = useSelector((state) => state.place.createdPlace);
+  const recentPlaces = useSelector((state) => state.place.recentPlaces);
 
   const [accountQuery, setAccountQuery] = useState("");
   const [accountListOpen, setAccountListOpen] = useState(false);
@@ -29,7 +30,7 @@ const CreatePlacePage = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
 
   const [placeToCreate, setPlaceToCreate] = useState({});
-  const [message, setMessage] = useState();
+
 
   useEffect(() => {
     if (accountQuery) {
@@ -162,6 +163,10 @@ const CreatePlacePage = () => {
           <Button onClick={onPlaceClick}>장소등록</Button>
         </Section>
       )}
+      {recentPlaces.length &&
+        recentPlaces.map((place) => {
+          <div>{place}</div>;
+        })}
     </Container>
   );
 };
