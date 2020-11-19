@@ -1,7 +1,12 @@
 import axios from "axios";
 import { call, put, takeLatest, debounce } from "redux-saga/effects";
 import { placeAction } from "./slice";
-import { dbService, serverTimestamp } from "lib/firebaseCofig";
+import {
+  dbService,
+  geoService,
+  dbInstance,
+  serverTimestamp,
+} from "lib/firebaseCofig";
 
 function searchAddressAPI(query) {
   console.log(query);
@@ -51,12 +56,16 @@ function* searchAccount(action) {
 
 function createPlaceAPI({ instagram, instagramInfo, kakao, user }) {
   console.log("API", instagram, instagramInfo, kakao, user);
-  const result = dbService.collection("place").add({
+  const result = geoService.collection("place").add({
     creatorId: user,
     createdAt: serverTimestamp(),
     instagram,
     instagramInfo,
     kakao,
+    coordinates: new dbInstance.GeoPoint(
+      parseFloat(kakao.y),
+      parseFloat(kakao.x)
+    ),
   });
   return result;
 }
@@ -103,6 +112,29 @@ function* getRecentPlaces(action) {
   }
 }
 
+function getPlacesByPointAPI({ lat, lng }) {
+  console.log(lat, lng);
+  console.log(new dbInstance.GeoPoint(lat, lng));
+  return geoService
+    .collection("place")
+    .near({
+      center: new dbInstance.GeoPoint(lat, lng),
+      radius: 1000,
+    })
+    .get();
+}
+
+function* getPlacesByPoint(action) {
+  try {
+    const result = yield call(getPlacesByPointAPI, action.payload);
+    console.log("지도액션", result);
+    yield put(placeAction.getPlacesByPointSuccess(result));
+  } catch (error) {
+    console.log("에러", error);
+    yield put(placeAction.getPlacesByPointFailure(error));
+  }
+}
+
 export function* watchSearchAddress() {
   yield debounce(100, placeAction.searchAddressRequest, searchAddress);
 }
@@ -121,4 +153,8 @@ export function* watchGetAccountInfo() {
 
 export function* watchGetRecentPlaces() {
   yield takeLatest(placeAction.getRecentPlacesRequest, getRecentPlaces);
+}
+
+export function* watchGetPlacesByPoint() {
+  yield debounce(100, placeAction.getPlacesByPointRequest, getPlacesByPoint);
 }

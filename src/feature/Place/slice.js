@@ -22,6 +22,10 @@ export const initialState = {
   getRecentPlacesDone: false,
   getRecentPlacesError: null,
   recentPlaces: [],
+  getPlacesByPointLoading: false,
+  getPlacesByPointDone: false,
+  getPlacesByPointError: null,
+  placesByPoint: [],
 };
 
 const reducers = {
@@ -82,7 +86,8 @@ const reducers = {
   createPlaceSuccess: (state, { payload }) => {
     state.createPlaceLoading = false;
     state.createPlaceDone = true;
-    state.createdPlace = payload.f_.path.segments[1];
+    console.log("새로운 장소생성", payload);
+    state.createdPlace = payload;
   },
   createPlaceFailure: (state, { payload: error }) => {
     state.createPlaceLoading = false;
@@ -134,6 +139,28 @@ const reducers = {
   getRecentPlacesFailure: (state, { payload: error }) => {
     state.getRecentPlacesLoading = false;
     state.getRecentPlacesError = error.message;
+  },
+  getPlacesByPointRequest: (state) => {
+    state.getPlacesByPointLoading = true;
+    state.getPlacesByPointDone = false;
+    state.getPlacesByPointError = null;
+    state.createdPlace = null;
+  },
+  getPlacesByPointSuccess: (state, { payload }) => {
+    state.getPlacesByPointLoading = false;
+    state.getPlacesByPointDone = true;
+    let places = [];
+    payload.forEach((doc) => {
+      places.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    state.placesByPoint = places;
+  },
+  getPlacesByPointFailure: (state, { payload: error }) => {
+    state.getPlacesByPointLoading = false;
+    state.getPlacesByPointError = error.message;
   },
 };
 

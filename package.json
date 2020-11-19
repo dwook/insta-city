@@ -6,6 +6,8 @@
     "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.21.0",
     "firebase": "^7.24.0",
+    "geofirestore": "^4.3.0",
+    "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
