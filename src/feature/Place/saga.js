@@ -89,19 +89,12 @@ function* getAccountInfo(action) {
 }
 
 function getRecentPlacesAPI() {
-  const result = dbService.collection("place").onSnapshot((snapshot) => {
-    const recentPlaces = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    console.log(recentPlaces);
-  });
-  return result;
+  return dbService.collection("place").get();
 }
 
 function* getRecentPlaces(action) {
   try {
-    const result = yield call(getRecentPlacesAPI, action.payload);
+    const result = yield call(getRecentPlacesAPI);
     console.log("액션", result);
     yield put(placeAction.getRecentPlacesSuccess(result));
   } catch (error) {

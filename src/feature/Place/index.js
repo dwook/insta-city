@@ -31,7 +31,6 @@ const CreatePlacePage = () => {
 
   const [placeToCreate, setPlaceToCreate] = useState({});
 
-
   useEffect(() => {
     if (accountQuery) {
       dispatch(placeAction.searchAccountRequest(accountQuery));
@@ -163,10 +162,6 @@ const CreatePlacePage = () => {
           <Button onClick={onPlaceClick}>장소등록</Button>
         </Section>
       )}
-      {recentPlaces.length &&
-        recentPlaces.map((place) => {
-          <div>{place}</div>;
-        })}
     </Container>
   );
 };

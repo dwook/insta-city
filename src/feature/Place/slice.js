@@ -122,7 +122,14 @@ const reducers = {
   getRecentPlacesSuccess: (state, { payload }) => {
     state.getRecentPlacesLoading = false;
     state.getRecentPlacesDone = true;
-    state.recentPlaces = payload;
+    let places = [];
+    payload.forEach((doc) => {
+      places.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    state.recentPlaces = places;
   },
   getRecentPlacesFailure: (state, { payload: error }) => {
     state.getRecentPlacesLoading = false;
