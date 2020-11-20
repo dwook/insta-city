@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import _ from "lodash";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +14,9 @@ const MapContainer = () => {
   const [map, setMap] = useState(null);
   const [currentLat, setCurrentLat] = useState(37.551279740966);
   const [currentLng, setCurrentLng] = useState(126.988217046052);
+  const markerList = useRef([]);
+  const overlayList = useRef([]);
+  const placeIdList = useRef([]);
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -66,12 +69,38 @@ const MapContainer = () => {
   useEffect(() => {
     placesByPoint.forEach((el) => {
       console.log("장소마커", el.kakao);
-      new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(el.kakao.y, el.kakao.x),
-        title: el.kakao.place_name,
-      });
+      if (!placeIdList.current.includes(el.id)) {
+        placeIdList.current.push(el.id);
+        const marker = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(el.kakao.y, el.kakao.x),
+        });
+        markerList.current.push(marker);
+        console.log(markerList, markerList.current, "마커", marker);
+
+        const overlay = new kakao.maps.CustomOverlay({
+          map: map,
+          position: new kakao.maps.LatLng(el.kakao.y, el.kakao.x),
+          content: `<div class="marker" data-id="${el.id}" style="background-image:url(${el.instagram.pic_url})">
+          </div>`,
+          yAnchor: 1,
+        });
+        overlayList.current.push(marker);
+        console.log(overlayList, overlayList.current, "마커", overlay);
+        console.log("아이디리스트", placeIdList.current);
+      }
     });
+    return () => {
+      console.log("해제");
+      markerList.current.forEach((el) => el.setMap(null));
+      overlayList.current.forEach((el) => el.setMap(null));
+      console.log(
+        "해제종료",
+        markerList.current,
+        overlayList.current,
+        placeIdList.current
+      );
+    };
   }, [placesByPoint, currentLat, currentLng]);
 
   useEffect(() => {

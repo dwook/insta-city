@@ -19,6 +19,15 @@ const GlobalStyle = createGlobalStyle`
     background: rgb(250,245,29);
     // background: linear-gradient(0deg, rgba(250,245,29,1) 0%, rgba(250,45,197,1) 50%, rgba(146,69,255,1) 100%);
   }
+  .marker {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-size: cover;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 const Container = styled.div`
