@@ -97,6 +97,17 @@ function* getAccountInfo(action) {
   }
 }
 
+function* getAccountMedia(action) {
+  try {
+    const result = yield call(getAccountInfoAPI, action.payload);
+    console.log("인포액션", result);
+    yield put(placeAction.getAccountMediaSuccess(result));
+  } catch (error) {
+    console.log("에러", error);
+    yield put(placeAction.getAccountMediaFailure(error));
+  }
+}
+
 function getRecentPlacesAPI() {
   return dbService.collection("place").get();
 }
@@ -149,6 +160,10 @@ export function* watchCreatePlace() {
 
 export function* watchGetAccountInfo() {
   yield takeLatest(placeAction.getAccountInfoRequest, getAccountInfo);
+}
+
+export function* watchGetAccountMedia() {
+  yield takeLatest(placeAction.getAccountMediaRequest, getAccountMedia);
 }
 
 export function* watchGetRecentPlaces() {

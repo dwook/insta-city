@@ -12,6 +12,7 @@ import {
   watchSearchAccount,
   watchCreatePlace,
   watchGetAccountInfo,
+  watchGetAccountMedia,
   watchGetRecentPlaces,
   watchGetPlacesByPoint,
 } from "../feature/Place/saga";
@@ -31,6 +32,7 @@ export function* rootSaga() {
     watchSearchAccount(),
     watchCreatePlace(),
     watchGetAccountInfo(),
+    watchGetAccountMedia(),
     watchGetRecentPlaces(),
     watchGetPlacesByPoint(),
   ]);

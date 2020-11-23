@@ -14,10 +14,14 @@ export const initialState = {
   createPlaceDone: false,
   createPlaceError: null,
   createdPlace: null,
-  getAccountLoading: false,
-  getAccountDone: false,
-  getAccountError: null,
+  getAccountInfoLoading: false,
+  getAccountInfoDone: false,
+  getAccountInfoError: null,
   accountInfo: null,
+  getAccountMediaLoading: false,
+  getAccountMediaDone: false,
+  getAccountMediaError: null,
+  accountMedia: null,
   getRecentPlacesLoading: false,
   getRecentPlacesDone: false,
   getRecentPlacesError: null,
@@ -114,9 +118,23 @@ const reducers = {
       video: data.graphql.user.edge_felix_video_timeline.edges,
     };
   },
-  getAccountInfoFailure: (state, { payload: error }) => {
-    state.getAccountInfoLoading = false;
-    state.getAccountInfoError = error.message;
+  getAccountMediaRequest: (state) => {
+    state.getAccountMediaLoading = true;
+    state.getAccountMediaDone = false;
+    state.getAccountMediaError = null;
+  },
+  getAccountMediaSuccess: (state, { payload: { data } }) => {
+    state.getAccountMediaLoading = false;
+    state.getAccountMediaDone = true;
+    state.accountMedia = {
+      media_count: data.graphql.user.edge_owner_to_timeline_media.count,
+      media: data.graphql.user.edge_owner_to_timeline_media.edges,
+      video: data.graphql.user.edge_felix_video_timeline.edges,
+    };
+  },
+  getAccountMediaFailure: (state, { payload: error }) => {
+    state.getAccountMediaLoading = false;
+    state.getAccountMediaError = error.message;
   },
   getRecentPlacesRequest: (state) => {
     state.getRecentPlacesLoading = true;

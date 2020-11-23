@@ -81,7 +81,7 @@ const MapContainer = () => {
         const overlay = new kakao.maps.CustomOverlay({
           map: map,
           position: new kakao.maps.LatLng(el.kakao.y, el.kakao.x),
-          content: `<div class="marker" data-id="${el.id}" onclick="window.history.pushState('','','/place/${el.id}');" style="background-image:url(${el.instagram.pic_url})">
+          content: `<div class="marker" data-id="${el.id}" onclick="window.browserHistory.push('/place/${el.id}');" style="background-image:url(${el.instagram.pic_url})">
           </div>`,
           yAnchor: 1,
         });

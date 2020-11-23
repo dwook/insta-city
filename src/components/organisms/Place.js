@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { Picture, Name, FullName } from "components/atoms/Profile";
 import { Title } from "components/atoms/Typography";
 
-const PlaceToCreate = ({ instagram, instagramInfo, kakao }) => {
+const Place = ({ instagram, instagramInfo, instagramMedia, kakao }) => {
+  const handleImageError = (e) => {
+    e.target.style.display = "none";
+  };
+
   return (
     <Container>
       <Profile>
@@ -36,9 +40,13 @@ const PlaceToCreate = ({ instagram, instagramInfo, kakao }) => {
             </Row>
           </Information>
           <ImageContainer>
-            {instagramInfo.media &&
-              instagramInfo.media.map((media) => (
-                <Image key={media.node.id} source={media.node.display_url} />
+            {instagramMedia &&
+              instagramMedia.map((media) => (
+                <Image
+                  key={media.node.id}
+                  src={media.node.display_url}
+                  onError={handleImageError}
+                />
               ))}
           </ImageContainer>
         </>
@@ -47,7 +55,7 @@ const PlaceToCreate = ({ instagram, instagramInfo, kakao }) => {
   );
 };
 
-export default PlaceToCreate;
+export default Place;
 
 const Container = styled.div`
   display: flex;
@@ -82,20 +90,15 @@ const Group = styled.div`
 
 const ImageContainer = styled.div`
   width: 100%;
-  height: 150px;
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
 `;
 
-const Image = styled.div`
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
+const Image = styled.img`
+  width: 23%;
+  max-height: 23%;
   border-radius: 0.2rem;
-  background-image: url(${(props) => props.source});
-  background-postion: center;
-  background-size: cover;
   margin: 1%;
 `;

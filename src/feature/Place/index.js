@@ -157,6 +157,7 @@ const CreatePlacePage = () => {
           <Place
             instagram={selectedAccount}
             instagramInfo={accountInfo}
+            instagramMedia={accountInfo.media}
             kakao={selectedAddress}
           />
           <Button onClick={onPlaceClick}>장소등록</Button>
