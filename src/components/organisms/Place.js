@@ -1,20 +1,22 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { Picture, Name, FullName } from "components/atoms/Profile";
+import {
+  Picture,
+  NameContainer,
+  AccountName,
+  FullName,
+} from "components/atoms/Profile";
 import { Title } from "components/atoms/Typography";
 
 const Place = ({ instagram, instagramInfo, instagramMedia, kakao }) => {
-  const handleImageError = (e) => {
-    e.target.style.display = "none";
-  };
-
   return (
     <Container>
       <Profile>
         <Picture src={instagram.pic_url} alt={instagram.username} />
-        <Name>
-          <strong>{instagram.username}</strong>
+        <NameContainer>
+          <AccountName>{instagram.username}</AccountName>
           <FullName>{instagram.fullname}</FullName>
-        </Name>
+        </NameContainer>
       </Profile>
       {kakao && (
         <Information>
@@ -42,11 +44,7 @@ const Place = ({ instagram, instagramInfo, instagramMedia, kakao }) => {
           <ImageContainer>
             {instagramMedia &&
               instagramMedia.map((media) => (
-                <Image
-                  key={media.node.id}
-                  src={media.node.display_url}
-                  onError={handleImageError}
-                />
+                <Image key={media.node.id} src={media.node.display_url} />
               ))}
           </ImageContainer>
         </>
@@ -96,9 +94,36 @@ const ImageContainer = styled.div`
   margin-top: 5px;
 `;
 
-const Image = styled.img`
-  width: 23%;
-  max-height: 23%;
-  border-radius: 0.2rem;
-  margin: 1%;
+const ImageWrapper = styled.div`
+  width: 24%;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 23%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  position: relative;
 `;
+
+const ImageElement = styled.img`
+  object-fit: cover;
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0.2rem;
+`;
+
+const Image = ({ key, src }) => {
+  const [disabled, setDisabled] = useState(false);
+  const handleImageError = () => {
+    setDisabled(true);
+  };
+  if (disabled) return false;
+  return (
+    <ImageWrapper>
+      <ImageElement key={key} src={src} onError={handleImageError} />
+    </ImageWrapper>
+  );
+};

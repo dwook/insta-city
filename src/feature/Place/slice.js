@@ -30,6 +30,7 @@ export const initialState = {
   getPlacesByPointDone: false,
   getPlacesByPointError: null,
   placesByPoint: [],
+  geoPoint: { lat: 37.551279740966, lng: 126.988217046052 },
 };
 
 const reducers = {
@@ -179,6 +180,9 @@ const reducers = {
   getPlacesByPointFailure: (state, { payload: error }) => {
     state.getPlacesByPointLoading = false;
     state.getPlacesByPointError = error.message;
+  },
+  setGeoPoint: (state, { lat, lng }) => {
+    state.geoPoint = { lat, lng };
   },
 };
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { placeAction } from "./slice";
+import { placeAction } from "../../../feature/Place/slice";
 import { H2, Description } from "components/atoms/Typography";
 import { SearchInput } from "components/atoms/Input";
 import { Button } from "components/atoms/Button";
-import ProfileSelect from "components/organisms/ProfileSelect";
+import AccountSelect from "components/organisms/AccountSelect";
 import AddressSelect from "components/organisms/AddressSelect";
 import Place from "components/organisms/Place";
 
@@ -124,7 +124,7 @@ const CreatePlacePage = () => {
         >
           {accountListOpen &&
             searchedAccounts.map((account) => (
-              <ProfileSelect
+              <AccountSelect
                 {...account}
                 key={account.id}
                 onClick={onAccountClick}

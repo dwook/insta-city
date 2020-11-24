@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { userAction } from "./slice";
+import { userAction } from "../../../feature/User/slice";
 import { Description } from "components/atoms/Typography";
 import { Input, Label } from "components/atoms/Input";
 import { Button } from "components/atoms/Button";

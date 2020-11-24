@@ -5,15 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { placeAction } from "feature/Place/slice";
 const { kakao } = window;
 
-const MapContainer = () => {
+const Map = () => {
   const dispatch = useDispatch();
-  const recentPlaces = useSelector((state) => state.place.recentPlaces);
+
   const placesByPoint = useSelector((state) => state.place.placesByPoint);
   const createdPlace = useSelector((state) => state.place.createdPlace);
   const [message, setMessage] = useState();
   const [map, setMap] = useState(null);
-  const [currentLat, setCurrentLat] = useState(37.551279740966);
-  const [currentLng, setCurrentLng] = useState(126.988217046052);
+  const { lat, lng } = useSelector((state) => state.place.geoPoint);
   const markerList = useRef([]);
   const overlayList = useRef([]);
   const placeIdList = useRef([]);
@@ -22,12 +21,16 @@ const MapContainer = () => {
     const container = document.getElementById("map");
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setCurrentLat(position.coords.latitude);
-        setCurrentLng(position.coords.longitude);
+        dispatch(
+          placeAction.setGeoPoint({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        );
       });
     }
     const options = {
-      center: new kakao.maps.LatLng(currentLat, currentLng),
+      center: new kakao.maps.LatLng(lat, lng),
       level: 7,
     };
     const map = new kakao.maps.Map(container, options);
@@ -35,9 +38,7 @@ const MapContainer = () => {
     setMap(map);
 
     dispatch(placeAction.getRecentPlacesRequest());
-    dispatch(
-      placeAction.getPlacesByPointRequest({ lat: currentLat, lng: currentLng })
-    );
+    dispatch(placeAction.getPlacesByPointRequest({ lat, lng }));
     placesByPoint.forEach((el) => {
       console.log("장소마커", el.kakao);
       new kakao.maps.Marker({
@@ -53,8 +54,12 @@ const MapContainer = () => {
       _.debounce(function () {
         var level = map.getLevel();
         var latlng = map.getCenter();
-        setCurrentLat(latlng.getLat());
-        setCurrentLng(latlng.getLng());
+        dispatch(
+          placeAction.setGeoPoint({
+            lat: latlng.getLat(),
+            lng: latlng.getLng(),
+          })
+        );
         console.log(level, "위도", latlng.getLat(), "경도", latlng.getLng());
         dispatch(
           placeAction.getPlacesByPointRequest({
@@ -101,18 +106,16 @@ const MapContainer = () => {
         placeIdList.current
       );
     };
-  }, [placesByPoint, currentLat, currentLng]);
+  }, [placesByPoint, lat, lng]);
 
   useEffect(() => {
-    dispatch(
-      placeAction.getPlacesByPointRequest({ lat: currentLat, lng: currentLng })
-    );
+    dispatch(placeAction.getPlacesByPointRequest({ lat, lng }));
   }, [createdPlace]);
 
   return <Container id="map"></Container>;
 };
 
-export default MapContainer;
+export default Map;
 
 const Container = styled.div`
   max-width: 600px;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Auth from "feature/User";
-import CreatePlacePage from "feature/Place";
+import Auth from "components/pages/AuthPage";
+import CreatePlacePage from "components/pages/CreatePlace";
 
-function Side() {
+function AdminPage() {
   return (
     <Container>
       <Auth />
@@ -11,7 +11,7 @@ function Side() {
   );
 }
 
-export default Side;
+export default AdminPage;
 
 const Container = styled.div`
   width: 500px;

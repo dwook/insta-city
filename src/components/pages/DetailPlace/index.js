@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { placeAction } from "feature/Place/slice";
 import styled from "styled-components";
 import Place from "components/organisms/Place";
+import { Loading } from "components/atoms/Icon";
 
-const PlaceDetail = () => {
+const DetailPlace = () => {
   const dispatch = useDispatch();
   const placesByPoint = useSelector((state) => state.place.placesByPoint);
   const accountMedia = useSelector((state) => state.place.accountMedia);
@@ -15,14 +16,16 @@ const PlaceDetail = () => {
 
   useEffect(() => {
     if (place) {
-      // dispatch(
-      //   placeAction.getAccountMediaRequest(place.instagram.username)
-      // );
+      dispatch(placeAction.getAccountMediaRequest(place.instagram.username));
     }
   }, [place]);
 
   if (!place) {
-    return <div>로딩중</div>;
+    return (
+      <Container justify="center" align="middle">
+        <Loading />
+      </Container>
+    );
   }
 
   return (
@@ -37,11 +40,15 @@ const PlaceDetail = () => {
   );
 };
 
-export default PlaceDetail;
+export default DetailPlace;
 
 const Container = styled.div`
   width: 500px;
+  height: 90vh;
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
+  display: flex;
+  justify-content: ${(props) => props.justify};
+  align-items: ${(props) => props.algin};
 `;

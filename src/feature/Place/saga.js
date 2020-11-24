@@ -109,7 +109,7 @@ function* getAccountMedia(action) {
 }
 
 function getRecentPlacesAPI() {
-  return dbService.collection("place").get();
+  return dbService.collection("place").limit(10).get();
 }
 
 function* getRecentPlaces(action) {
@@ -132,6 +132,7 @@ function getPlacesByPointAPI({ lat, lng }) {
       center: new dbInstance.GeoPoint(lat, lng),
       radius: 1000,
     })
+    .limit(10)
     .get();
 }
 

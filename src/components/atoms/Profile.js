@@ -7,14 +7,27 @@ export const Picture = styled.img`
   height: 56px;
 `;
 
-export const Name = styled.div`
+export const NameContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: 10px;
 `;
 
+export const AccountName = styled.div`
+  font-weight: bold;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  width: 150px;
+`;
+
 export const FullName = styled.div`
   margin-top: 2px;
   color: #868e96;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  width: 150px;
 `;
