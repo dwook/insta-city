@@ -51,4 +51,11 @@ const Container = styled.div`
   display: flex;
   justify-content: ${(props) => props.justify};
   align-items: ${(props) => props.algin};
+  @media only screen and (max-width: 768px) {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    height: 50vh;
+  }
 `;

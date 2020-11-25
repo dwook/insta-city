@@ -21,16 +21,20 @@ function NewPlace() {
   return (
     <Container>
       <H2>New</H2>
-      <div>
+      <AccountContainer>
         {recentPlaces.map((place) => (
           <AccountSelect {...place.instagram} key={place.id} onClick />
         ))}
-      </div>
+      </AccountContainer>
     </Container>
   );
 }
 
 export default NewPlace;
+
+const AccountContainer = styled.div`
+  display: block;
+`;
 
 const Container = styled.div`
   width: 300px;
@@ -42,4 +46,19 @@ const Container = styled.div`
   justify-content: ${(props) => props.justify};
   align-items: ${(props) => props.algin};
   flex-direction: column;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    ${AccountContainer} {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      display: flex;
+      border-radius: 1rem;
+    }
+    ${H2} {
+      display: none;
+    }
+  }
 `;

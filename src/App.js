@@ -3,9 +3,9 @@ import { Provider } from "react-redux";
 import createStore from "./store";
 import { Route } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
-import MapContainer from "components/pages/Map";
+import Map from "components/pages/Map";
 import Side from "components/pages/AdminPage";
-import Trending from "components/pages/NewPlace";
+import NewPlace from "components/pages/NewPlace";
 import PlaceDetail from "components/pages/DetailPlace";
 
 const store = createStore();
@@ -16,8 +16,8 @@ const App = () => {
       <GlobalStyle />
       <Container>
         <Route path="/">
-          <Trending />
-          <MapContainer />
+          <NewPlace />
+          <Map />
         </Route>
         <Route path="/admin" component={Side} />
         <Route path="/place/:place_id" component={PlaceDetail} />
@@ -52,4 +52,8 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    position: relative;
+  }
 `;

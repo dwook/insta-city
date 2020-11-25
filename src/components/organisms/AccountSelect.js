@@ -30,4 +30,14 @@ const Container = styled.div`
   &:hover {
     background-color: #f1f3f5;
   }
+  @media only screen and (max-width: 768px) {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    border-bottom: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.0975);
+
+    &:first-child {
+      border-left: 0;
+    }
+  }
 `;

@@ -5,6 +5,10 @@ export const Picture = styled.img`
   border: 1px solid rgba(0, 0, 0, 0.0975);
   width: 56px;
   height: 56px;
+  @media only screen and (max-width: 768px) {
+    width: 46px;
+    height: 46px;
+  }
 `;
 
 export const NameContainer = styled.div`
@@ -12,6 +16,9 @@ export const NameContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-left: 10px;
+  @media only screen and (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 export const AccountName = styled.div`

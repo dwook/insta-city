@@ -122,4 +122,9 @@ const Container = styled.div`
   width: 50%;
   height: 90vh;
   border-radius: 1rem;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    height: 50vh;
+    max-width: initial;
+  }
 `;
