@@ -26,7 +26,7 @@ export const AccountName = styled.div`
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;
-  width: 150px;
+  width: 100%;
 `;
 
 export const FullName = styled.div`
@@ -36,5 +36,5 @@ export const FullName = styled.div`
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;
-  width: 150px;
+  width: 100%;
 `;

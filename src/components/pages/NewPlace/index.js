@@ -46,6 +46,7 @@ const Container = styled.div`
   justify-content: ${(props) => props.justify};
   align-items: ${(props) => props.algin};
   flex-direction: column;
+  overflow: scroll;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
